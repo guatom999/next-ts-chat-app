@@ -1,5 +1,6 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 interface Chat {
@@ -11,6 +12,7 @@ const Chat = ({ setChatMode, setSocket }: Chat) => {
     const [roomId, setRoomId] = useState<string>('');
     const [error, setError] = useState<string>('')
     // const [isConnected, setIsConnected] = useState(false);
+    const { data: session } = useSession()
 
 
     const handleRandomRoom = () => {
@@ -19,9 +21,18 @@ const Chat = ({ setChatMode, setSocket }: Chat) => {
 
             const ws = new WebSocket(`ws://localhost:5555/randomroom`);
 
+            setSocket(ws);
+
             ws.onopen = () => {
                 console.log('Connected to room:', roomId);
                 // setIsConnected(true);
+
+                ws.send(JSON.stringify({
+                    type: 'join',
+                    sender: session?.user?.name || 'Anonymous',
+                    message: '',
+                }))
+
                 setSocket(ws);
                 setError('')
             };

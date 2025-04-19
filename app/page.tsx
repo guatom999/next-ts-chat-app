@@ -5,18 +5,19 @@ import JoinnedChat from "@/components/JoinnedChat";
 // import LoginButton from "@/components/LoginButton";
 import Profile from "@/components/Profile";
 import UserBar from "@/components/UserBar";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import { useState } from 'react';
 
 export default function Page() {
 
-  // const { data: session } = useSession()
+  const { data: session } = useSession()
 
-  const [sender, setSender] = useState('sender')
+  // const [sender, setSender] = useState(session?.user?.name)
   const [chatMode, setChatMode] = useState(true)
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
+  console.log("session is ========>", session)
 
   return (
     <div>
@@ -26,7 +27,9 @@ export default function Page() {
           <div className="gap-10 max-w-[1000px] mx-auto ">
             <UserBar />
             <div className="flex justify-center items-start gap-10 max-w-[1000px] mx-auto">
-              <Profile setSender={setSender} />
+              <Profile
+              //  setSender={setSender}
+              />
               <Chat setSocket={setSocket} setChatMode={setChatMode} />
             </div>
           </div>
@@ -35,7 +38,7 @@ export default function Page() {
           :
 
           (
-            <JoinnedChat sender={sender} setChatMode={setChatMode} socket={socket} setSocket={setSocket} />
+            <JoinnedChat setChatMode={setChatMode} socket={socket} setSocket={setSocket} />
           )
       }
     </div>

@@ -19,7 +19,7 @@ const LoginModal = ({ setIsModalOpen }: LoginModalProps) => {
     //     router.push('https://discord.com/oauth2/authorize?client_id=1362393639854280959&response_type=code&redirect_uri=localhost%3A30001&scope=identify+email')
     // }
 
-    console.log(typeof (setIsModalOpen))
+    // console.log(typeof (setIsModalOpen))
 
     return (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 ">
@@ -41,7 +41,7 @@ const LoginModal = ({ setIsModalOpen }: LoginModalProps) => {
                         setIsModalOpen(false)
                     }}
                 >
-                    JOIN WITH DISOCRD
+                    Join With Discord
                 </button>
                 <button
                     className="w-full bg-white border border-black py-2 px-4 rounded-md cursor-pointer hover:bg-fuchsia-200 transition-colors"
@@ -49,7 +49,7 @@ const LoginModal = ({ setIsModalOpen }: LoginModalProps) => {
                         // await handleDiscordLogin()
                         setIsModalOpen(false)
                     }}>
-                    JOIN WITH GOOGLE
+                    Join With Google
                 </button>
                 {/* <form className="space-y-4">
                     <div>

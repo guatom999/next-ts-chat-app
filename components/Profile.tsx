@@ -1,9 +1,10 @@
 import React from 'react'
 
-interface Profile {
-    setSender: React.Dispatch<React.SetStateAction<string>>
-}
-const Profile = ({ setSender }: Profile) => {
+// interface Profile {
+//     setSender: React.Dispatch<React.SetStateAction<string>>
+// }
+// const Profile = ({ setSender }: Profile) => {
+const Profile = () => {
     const sticket = ['😊', '😂', '🥰', '😍', '😭']
 
 
@@ -14,7 +15,8 @@ const Profile = ({ setSender }: Profile) => {
                 <input
                     className='text-2xl outline-none'
                     placeholder='บอกชื่อเราหน่อย'
-                    onChange={(e) => { setSender(e.target.value) }}
+                // onChange={(e) => { setSender(e.target.value) }}
+
                 >
                 </input>
             </div>

@@ -20,8 +20,8 @@ export const hanlder = NextAuth({
   },
   callbacks: {
     async session({ session, token }) {
-      console.log("Session:", session);
-      console.log("Token:", token);
+      // console.log("Session:", session);
+      // console.log("Token:", token);
       return session;
     },
   },
