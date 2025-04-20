@@ -19,6 +19,7 @@ interface MessageData {
 const JoinnedChat = ({ setChatMode, socket, setSocket }: JoinnedChat) => {
     const [message, setMessage] = useState<string>('')
     const [messages, setMessages] = useState<MessageData[]>([])
+    const [mode, setMode] = useState(0)
     // const [user, setUser] = useState<string[]>([])
     const [user, setUser] = useState('')
 
@@ -87,68 +88,75 @@ const JoinnedChat = ({ setChatMode, socket, setSocket }: JoinnedChat) => {
 
 
     return (
-        <div className="flex items-start justify-center max-w-[800px] mx-auto relative min-h-screen">
 
-            <div className="relative w-[400px] border border-black py-5 my-5">
-                <button
-                    className="absolute -top-0 right-0 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
-                    onClick={handleCloseConnection}
-                >
-                    Exit
-                </button>
-                <div className='border border-black mx-10 my-3'>
-                    <p className='p-3 w-full'>Joinned Channel</p>
-                </div>
-                <div className="h-[350px] relative">
-                    <div className="overflow-y-auto h-[300px] mx-10 mb-4">
-                        {messages.map((msg, index) => (
-                            msg.type === 'join' ? (
-                                (
-                                    msg.sender === session?.user?.name ? (
-                                        <div key={index} className="flex justify-center mb-2 p-2 bg-gray-100 rounded">
-                                            <p className='text-sm'>คุณได้เข้าร่วม</p>
-                                        </div>
-                                    ) : (
-                                        <div key={index} className="flex justify-center mb-2 p-2 bg-gray-100 rounded">
-                                            <p className='text-sm'>{msg.sender} ได้เข้าร่วม</p>
-                                        </div>
-                                    )
+        <div className="relative w-[400px] border-2 border-black py-5 mt-12">
+            <button
+                className={`${mode === 0 ? `bg-pink-200` : ``}   absolute -top-11 -left-0.5 border-2 border-black rounded-t-md  px-4 py-2  hover:bg-pink-400 transition-colors w-[100px]`}
+                onClick={() => setMode(0)}
+            >
+                แชท
+            </button>
+            <button
+                className={`${mode === 1 ? `bg-pink-200` : ``}   absolute -top-11 left-[100px] border-2 border-black rounded-t-md  px-4 py-2  hover:bg-pink-400 transition-colors w-[100px]`}
+                onClick={() => setMode(1)}
+            >
+                เพลง
+            </button>
+            <button
+                className="absolute -top-11 -right-0.5 border-2 border-black rounded-t-md  px-4 py-2  hover:bg-red-600 transition-colors"
+                onClick={handleCloseConnection}
+            >
+                ออกจากโต๊ะ
+            </button>
+            <div className="h-[400px] relative">
+                <div className="overflow-y-auto h-[300px] mx-4 mb-4">
+                    {messages.map((msg, index) => (
+                        msg.type === 'join' ? (
+                            (
+                                msg.sender === session?.user?.name ? (
+                                    <div key={index} className="flex justify-center mb-2 p-2 bg-gray-200 rounded">
+                                        <p className='text-sm'>คุณได้เข้าร่วม</p>
+                                    </div>
+                                ) : (
+                                    <div key={index} className="flex justify-center mb-2 p-2 bg-gray-200 rounded w-full">
+                                        <p className='text-sm'>{msg.sender} ได้เข้าร่วม</p>
+                                    </div>
                                 )
                             )
-                                :
-                                (
-                                    msg.sender === user ?
-                                        <div key={index} className="flex justify-end mb-2 p-2 bg-gray-100 rounded">
-                                            <p className='text-sm'>{msg.message}</p>
-                                        </div>
+                        )
+                            :
+                            (
+                                msg.sender === user ?
+                                    <div key={index} className="flex justify-end mb-2 p-2 rounded">
+                                        <p className='text-sm px-4 rounded-md border border-black py-0.5'>{msg.message}</p>
+                                    </div>
 
-                                        :
+                                    :
 
-                                        <div key={index} className="flex justify-start mb-2 p-2 bg-gray-100 rounded">
-                                            <p className='text-sm'>{msg.message}</p>
-                                        </div>
+                                    <div key={index} className="flex justify-start mb-2 p-2 rounded">
+                                        <p className='text-sm px-4 rounded-md border border-black py-0.5'>{msg.message}</p>
+                                    </div>
 
-                                )
-                        ))}
-                    </div>
-                    <div className="flex border border-black mx-10 absolute bottom-0 w-[calc(100%-5rem)]">
-                        <input
-                            className="w-4/5 p-3"
-                            placeholder="Enter Your Message Here..."
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                        />
-                        <button
-                            className="w-1/5 cursor-pointer transition-colors hover:bg-gray-100"
-                            onClick={handleSendMessage}
-                        >
-                            <p>Send</p>
-                        </button>
-                    </div>
+                            )
+                    ))}
+                </div>
+                <div className="flex border border-black mx-4 absolute bottom-0 w-[calc(90%)]">
+                    <input
+                        className="w-4/5 p-3 focus:outline-none"
+                        placeholder="Enter Your Message Here..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                    />
+                    <button
+                        className="w-1/5 cursor-pointer border border-black m-2 rounded-md"
+                        onClick={handleSendMessage}
+                    >
+                        <p>ส่ง</p>
+                    </button>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 export default JoinnedChat

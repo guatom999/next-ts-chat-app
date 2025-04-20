@@ -88,9 +88,9 @@ const Chat = ({ setChatMode, setSocket }: Chat) => {
     };
 
     return (
-        <div className="w-[400px]">
-            <div className="w-full border border-black h-[526px] flex flex-col justify-end p-10 space-y-3">
-                <div className='flex border border-black'>
+        <div className="w-[400px] mt-12">
+            <div className="w-full border-2 border-black h-[526px] flex flex-col justify-end p-10 space-y-3  rounded-md">
+                <div className='flex border border-black rounded-sm'>
                     <button className='p-3 w-full' onClick={() => {
                         handleRandomRoom()
                         if (error == "") {
@@ -105,9 +105,10 @@ const Chat = ({ setChatMode, setSocket }: Chat) => {
                     <p>หรือ</p>
                 </div>
 
-                <div className="flex border border-black">
+                <div className="flex border border-black rounded-sm">
                     <input
-                        className="w-4/5 p-3"
+                        type="text"
+                        className="w-4/5 p-3 focus:outline-none"
                         placeholder="Enter room ID here"
                         value={roomId}
                         onChange={(e) => setRoomId(e.target.value)}
